@@ -1,0 +1,10 @@
+christian-kohler.npm-intellisense
+christian-kohler.path-intellisense
+dbaeumer.vscode-eslint
+EditorConfig.EditorConfig
+esbenp.prettier-vscode
+joshpeng.sublime-babel-vscode
+msjsdiag.debugger-for-chrome
+patbenatar.advanced-new-file
+robertohuertasm.vscode-icons
+wix.vscode-import-cost

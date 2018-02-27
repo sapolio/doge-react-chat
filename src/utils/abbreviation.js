@@ -7,6 +7,6 @@ export default function abbreviate(words, abbrLength) {
     .toUpperCase();
   } catch (err) {
     console.error(err);
-    return 'Whooops!';
+    return 'error';
   }
 };

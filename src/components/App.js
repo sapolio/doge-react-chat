@@ -1,38 +1,28 @@
 import React from 'react';
-import { withStyles } from 'material-ui/styles';
-import Sidebar from './Sidebar';
-import Chat from './Chat';
-import ChatHeader from './ChatHeader';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import PrivateRoute from '../containers/PrivateRoute';
+import configureStore from '../store';
+import ChatPage from '../containers/ChatPage';
+import Welcome from '../containers/WelcomePage';
 
 
-import { chats, messages } from '../mock-data';
+
+const store = configureStore();
 
 
+const App = ({ classes }) => (
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path="/(welcome)?" component={Welcome} />
+        <PrivateRoute path="/chat" component={ChatPage} />
+        <Redirect to='/' />
+      </Switch>      
+    </Router>
+  </Provider>
 
-const styles = theme => ({
-  appFrame: {
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-  }
-});
-
-class App extends React.Component {
-
-  render() {
-    const { classes } = this.props;
-
-   
-    return (
-        <div className={classes.appFrame}>
-          <ChatHeader />
-          <Sidebar chats={chats} />
-          <Chat messages={messages} />
-        </div>
-    );
-  }
-}
+)
 
 
-export default withStyles(styles)(App);
+export default App;

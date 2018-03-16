@@ -11,7 +11,7 @@ export default function configureStore() {
     )
   } else {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ serialize: true}) 
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ serialize: true})
     : compose;
 
     const store = createStore(
@@ -29,7 +29,7 @@ export default function configureStore() {
         store.replaceReducer(rootReducer)
       })
     }
-
+    
     return store;
   }
 }

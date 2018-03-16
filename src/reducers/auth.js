@@ -3,9 +3,9 @@ import * as types from '../constants/index';
 const token = localStorage.getItem('token');
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: !!token,
   user: null,
-  token: '',
+  token
 }
 
 export default function auth(state = initialState, action) {

@@ -119,7 +119,7 @@ class LoginForm extends React.Component {
           color="primary"
           className={classes.button}
         >
-          Login
+          Sign up
         </Button>
       </form>
     );

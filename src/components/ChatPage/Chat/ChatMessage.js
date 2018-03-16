@@ -3,7 +3,11 @@ import classnames from 'classnames';
 import { withStyles } from 'material-ui';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
-import Avatar from './Avatar';
+import moment from 'moment';
+import Avatar from '../Avatar';
+import senderName from '../../../utils/senderName';
+import colorFrom from '../../../utils/colors';
+
 
 const styles = theme => ({
   messageWrapper: {
@@ -15,12 +19,15 @@ const styles = theme => ({
   messageWrappperFromMe: {
     'flex-direction': 'row-reverse',
   },
+  statusWrapper: {
+    'justify-content': 'center',
+  },
   message: {
     maxWidth: '70%',
     minWidth: '10%',
     padding: theme.spacing.unit,
     marginLeft: theme.spacing.unit * 2,
-    backgroundColor: '#fed'
+    backgroundColor: '#fee'
   },
   messageFromMe: {
     marginRight: theme.spacing.unit * 2,
@@ -28,22 +35,38 @@ const styles = theme => ({
   },
 });
 
-const ChatMessage = ({ classes, sender, content }) => {
-  const isMessageFromMe = sender === 'me';
+const ChatMessage = ({ classes, sender, content, fromMe, statusMessage, createdAt }) => {
 
- 
+  const displayedName = senderName(sender);
+
+  if (statusMessage) {
+    return (
+      <div className={classnames(classes.messageWrapper, classes.statusWrapper)}>
+        <Typography>
+          <Typography variant="caption" style={{ color: colorFrom(sender._id)}} className={classes.statusMessageUser}>
+            {displayedName}
+          </Typography>
+          {content}
+          <Typography variant="caption" component="span">
+            {moment(createdAt).fromNow()}
+          </Typography>
+        </Typography>
+      </div>
+    )
+  }
+
   return (
     <div className={classnames(
       classes.messageWrapper,
-      isMessageFromMe && classes.messageWrappperFromMe
+      fromMe && classes.messageWrappperFromMe
     )}>
-      <Avatar title={sender} />
+      <Avatar title={sender.username} />
       <Paper className={classnames(
         classes.message,
-        isMessageFromMe && classes.messageFromMe
+        fromMe && classes.messageFromMe
       )}>
         <Typography variant="caption">
-          {sender}
+          {sender.username}
         </Typography>
         <Typography variant="body1">
           {content}

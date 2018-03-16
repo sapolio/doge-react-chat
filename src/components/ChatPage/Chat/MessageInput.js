@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input';
+import Button from 'material-ui/Button';
 
 const styles = theme => ({
   messageInputWrapper: {
@@ -14,16 +15,28 @@ const styles = theme => ({
   messageInput: {
     padding: theme.spacing.unit * 2,
   },
+  button: {
+    width: '100%',
+  },
 });
 
 class MessageInput extends React.Component {
   render() {
-    const { classes } = this.props;
+    const { classes, showJoinButton, onJoinButtonClick } = this.props;
 
     return (
       <div className={classes.messageInputWrapper}>
         <Paper className={classes.messageInput} elevation={10}>
-          <Input fullWidth placeholder="Type your message…"/>
+          {showJoinButton ? (
+            <Button
+              variant="raised"
+              color="primary"
+              className={classes.button}
+              onClick={onJoinButtonClick}>
+            So Much Join Very Chat
+            </Button>
+          ) : (
+              <Input fullWidth placeholder="Type your message…" />)}
         </Paper>
       </div>
     );

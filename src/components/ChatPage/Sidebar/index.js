@@ -4,12 +4,11 @@ import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
 import ChatList from './ChatList';
-import Button from 'material-ui/Button';
 import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
 
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
-import AddIcon from 'material-ui-icons/Add';
+import NewChatButton from './NewChatButton';
 
 const styles = theme => ({
   drawerPaper: {
@@ -45,9 +44,40 @@ const styles = theme => ({
   },
 });
 
-function Sidebar(props) {
-  const { classes, chats } = props;
-  return (
+class Sidebar extends React.Component {
+
+  state = {
+    navPosition: 0,
+    searchValue: ''
+  };
+
+  handleTabChange = (event, value) => {
+    this.setState({navPosition: value});
+  };
+  handleSearchChange = (event) => {
+    this.setState({
+      searchValue: event.target.value,
+    });
+  }
+  filterChats = (chats) => {
+    const { searchValue } = this.state;
+
+    return chats
+      .filter(chat => chat.title
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+      )
+      .sort((one, two) =>
+        one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1
+      );
+  }
+
+render() {
+
+  const { classes, chats, createChat } = this.props;
+  const { navPosition, searchValue } = this.state;
+
+  return (   
     <Drawer
       variant="permanent"
       classes={{
@@ -59,24 +89,28 @@ function Sidebar(props) {
           fullWidth
           margin="normal"
           placeholder="Search chats..."
+            value={searchValue}
+            onChange={this.handleSearchChange}
         />
       </div>
       <Divider />
-      <ChatList 
-        chats={chats}
+      <ChatList
+        chats={this.filterChats(navPosition === 1 ? chats.all : chats.my)}
+        activeChat={chats.active}
       />
-      <Button
-        variant="fab"
-        color="primary"
-        className={classes.newChatButton}>
-        <AddIcon />
-      </Button>
-      <BottomNavigation showLabels>
+      <NewChatButton 
+        createChat={createChat}
+      />
+      <BottomNavigation 
+        showLabels
+        value={navPosition}
+        onChange={this.handleTabChange}
+      >
         <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
         <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
       </BottomNavigation>
     </Drawer>
-  )
+  )}
 };
 
 export default withStyles(styles)(Sidebar);

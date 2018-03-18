@@ -4,10 +4,10 @@ import * as fromChats from '../reducers/chats';
 import * as fromState from '../reducers';
 import {
   fetchAllChats, fetchMyChats, setActiveChat,
-  createChat, deleteChat, joinChat, leaveChat,
-  sendMessage
-} from '../actions/chats';
+  createChat, deleteChat, joinChat, leaveChat
+  } from '../actions/chats';
 import { logout } from '../actions/auth';
+import { sendMessage, mountChat, unmountChat, socketsConnect } from "../actions/sockets";
 import { editUser } from '../actions/users';
 import ChatPage from '../components/ChatPage';
 
@@ -39,9 +39,12 @@ const
     deleteChat,
     joinChat,
     leaveChat,
-    sendMessage,
     logout,
-    editUser
+    editUser,
+    sendMessage,
+    mountChat,
+    unmountChat,
+    socketsConnect
   }, dispatch);
 
 export default connect(

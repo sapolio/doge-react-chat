@@ -21,6 +21,24 @@ const styles = theme => ({
 });
 
 class MessageInput extends React.Component {
+  state = {
+    value: '',
+  }
+
+  handleValueChange = (event) => {
+    this.setState({
+      value: event.target.value,
+    });
+  }
+
+  handleKeyPress = (event) => {
+    const { value } = this.state;
+
+    if (event.key === 'Enter' && value) {
+      this.props.sendMessage(value);
+      this.setState({ value: '' });
+    }
+  }
   render() {
     const { classes, showJoinButton, onJoinButtonClick } = this.props;
 
@@ -36,7 +54,12 @@ class MessageInput extends React.Component {
             So Much Join Very Chat
             </Button>
           ) : (
-              <Input fullWidth placeholder="Type your message…" />)}
+              <Input 
+                fullWidth
+                placeholder="Type your WOW"
+                value={this.state.value}
+                onChange={this.handleValueChange}
+                onKeyPress={this.handleKeyPress} />)}
         </Paper>
       </div>
     );

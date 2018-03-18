@@ -16,25 +16,32 @@ const styles = theme => ({
 
 class ChatPage extends React.Component {
   componentDidMount() {
-    const { match, fetchMyChats, fetchAllChats, setActiveChat } = this.props;
+    const { match, fetchMyChats, fetchAllChats, setActiveChat, socketsConnect, mountChat } = this.props;
 
     Promise.all([
       fetchAllChats(),
       fetchMyChats()
     ])
     .then(() => {
-      if (match.params.chatId) {
-        setActiveChat(match.params.chatId);
+      socketsConnect()
+    })
+    .then(() => {
+      const { chatId } = match.params;
+      if (chatId) {
+        setActiveChat(chatId);
+        mountChat(chatId);
       }
     });
   }
   componentWillReceiveProps(nextProps) {
-    const { match: { params }, setActiveChat } = this.props;
+    const { match: { params }, setActiveChat, mountChat, unmountChat } = this.props;
     const { params: nextParams } = nextProps.match;
 
     // If we change route, then fetch messages from chat by chatID
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
       setActiveChat(nextParams.chatId);
+      unmountChat(params.chatId);
+      mountChat(nextParams.chatId);
     }
   }
 

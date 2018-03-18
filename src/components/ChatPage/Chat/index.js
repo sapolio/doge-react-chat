@@ -42,7 +42,7 @@ const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage
 
     {!!activeChat && <MessageInput
       showJoinButton={!activeUser.isChatMember}
-      sendMessage={content => sendMessage(activeChat._id, content)}
+      sendMessage={sendMessage}
       onJoinButtonClick={() => joinChat(activeChat._id)}
       activeUser={activeUser} />}
   </main>

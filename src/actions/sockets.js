@@ -4,7 +4,8 @@ import { redirect } from '../actions/services';
 
 export function missingSocketConnection() {
   return {
-    type: types.SOCKETS_CONNECTION_MISSING
+    type: types.SOCKETS_CONNECTION_MISSING,
+    payload: new Error('missing connection')
   }
 };
 
@@ -12,8 +13,14 @@ let socket = null;
 
 export function socketsConnect() {
   return (dispatch, getState) => {
-    const { token } = getState().auth;
+    const state = getState();
+    const { isFetching } = state.services;
+    const { token } = state.auth;
 
+    if (isFetching.sockets) {
+      return Promise.resolve();
+    }
+    
     dispatch({
       type: types.SOCKETS_CONNECTION_REQUEST
     });
@@ -22,35 +29,37 @@ export function socketsConnect() {
         query: { token }
       });
 
-    socket.on('conect', () => {
+    socket.on('connect', () => {
       dispatch({
         type: types.SOCKETS_CONNECTION_SUCCESS
       });
     });
-    socket.on('error', () => {
+    socket.on('error', (error) => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_FAILURE
+        type: types.SOCKETS_CONNECTION_FAILURE,
+        payload: new Error(`Connetction ${error}`)
       });
     });
     socket.on('connect_error', () => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_FAILURE
+        type: types.SOCKETS_CONNECTION_FAILURE,
+        payload: new Error('Connection such lost...')
       });
     })
     
-    socket.on('new_message', (message) => {
+    socket.on('new-message', (message) => {
       dispatch({
         type: types.RECIEVE_MESSAGE,
         payload: message
       });
     });
-    socket.on('new_chat', ({ chat }) => {
+    socket.on('new-chat', ({ chat }) => {
       dispatch({
         type: types.RECIEVE_NEW_CHAT,
         payload: chat
       });
     });
-    socket.on('deleted_chat', ({ chat }) => {
+    socket.on('deleted-chat', ({ chat }) => {
       const { activeId } = getState().chats;
       dispatch({
         type: types.RECIEVE_DELETED_CHAT,
@@ -69,9 +78,11 @@ export function sendMessage(content) {
   return (dispatch, getState) => {
     const { activeId } = getState().chats;
 
-    if (!socket) dispatch(missingSocketConnection());
+    if (!socket) {
+      dispatch(missingSocketConnection());
+    }
 
-    socket.emit('send_message', {
+    socket.emit('send-message', {
       chatId: activeId,
       content
     }, () => {
@@ -85,11 +96,12 @@ export function sendMessage(content) {
     })
   }
 }
+
 export function mountChat(chatId) {
   return (dispatch) => {
     if (!socket) dispatch(missingSocketConnection);
 
-    socket.emit('mount_chat', chatId);
+    socket.emit('mount-chat', chatId);
 
     dispatch({
       type: types.MOUNT_CHAT,
@@ -102,7 +114,7 @@ export function unmountChat(chatId) {
   return (dispatch) => {
     if (!socket) dispatch(missingSocketConnection);
 
-    socket.emit('unmount_chat', chatId);
+    socket.emit('unmount-chat', chatId);
 
     dispatch({
       type: types.UNMOUNT_CHAT,

@@ -9,14 +9,16 @@ const styles = theme => ({
   // ...
 });
 
-const ChatListItem = ({ classes, title, chatId, active, createdAt }) => (
+const ChatListItem = ({ classes, title, chatId, active, createdAt, disabled }) => (
   <ListItem
     button
     component={Link}
+    disabled={disabled}
     to={`/chat/${chatId}`}
   >
     <Avatar 
       title={title}
+      colorFrom={chatId}
     />
     <ListItemText 
       primary={title}

@@ -9,6 +9,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import ErrorMessage from '../ErrorMessage';
 
 
 const styles = theme => ({
@@ -29,7 +30,7 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, theme, signup, login, isAuthenticated } = this.props;
+    const { classes, theme, signup, login, isAuthenticated, error } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
@@ -66,6 +67,7 @@ class WelcomePage extends React.Component {
             <SignupForm onSubmit={signup}/>
           </SwipeableViews>
         </Paper>
+        <ErrorMessage error={error} />
       </React.Fragment>
     )
   }

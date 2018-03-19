@@ -26,12 +26,14 @@ const styles = theme => ({
   },
 })
 
-const ChatHeader = ({ classes, activeUser, logout, editUser, activeChat, leaveChat, deleteChat, }) => (
+const ChatHeader = ({ classes, activeUser, logout, editUser,
+  activeChat, leaveChat, deleteChat, isConnected }) => (
+
   <AppBar className={classes.chatheader}>
     <Toolbar className={classes.Toolbar}>
       {activeChat ? (
         <div className={classes.titleContainer}>
-          <Avatar title={activeChat.title} />
+            <Avatar title={activeChat.title} colorFrom={activeChat._id} />
           <Typography
             className={classes.chatTitle}
             variant="title"
@@ -43,21 +45,24 @@ const ChatHeader = ({ classes, activeUser, logout, editUser, activeChat, leaveCh
             activeUser={activeUser}
             onLeaveClick={() => leaveChat(activeChat._id)}
             onDeleteClick={() => deleteChat(activeChat._id)}
+            disabled={!isConnected}
           />
         </div>
       ) : (
-          <Typography
-            className={classes.chatTitle}
-            variant="title"
-            color="inherit"
-            noWrap>
-            Doge Chat Such Many React
-          </Typography>
-        )}
+            <Typography
+              className={classes.chatTitle}
+              variant="title"
+              color="inherit"
+              noWrap>
+              Doge Chat Such Many React
+            </Typography>
+          )
+      }
       <UserMenu
         activeUser={activeUser}
         onLogoutClick={logout}
         onEditProfileClick={editUser}
+        disabled={!isConnected}
       />
     </Toolbar>
   </AppBar>

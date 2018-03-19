@@ -1,7 +1,7 @@
 import * as types from '../constants/users';
 import callApi from '../utils/call-api';
 
-export function editUser({userName, firstName, lastName}) {
+export function editUser({ username, firstName, lastName }) {
   return (dispatch, getState) => {
     const { token } = getState().auth;
 
@@ -9,18 +9,20 @@ export function editUser({userName, firstName, lastName}) {
       type: types.EDIT_USER_REQUEST
     })
 
-    return callApi('./user/me', token, {method: 'POST'}, {data: {
-      userName, firstName, lastName
-    }})
-    .then(json => (
-      dispatch({
+    return callApi('/users/me', token, { method: 'POST' },
+      {
+        data: { username, firstName, lastName }
+      })
+      .then(json => {
+        return json
+      })
+      .then(json => dispatch({
         type: types.EDIT_USER_SUCCESS,
         payload: json
-      })
-    ))
-    .catch(reason => dispatch({
-      type: types.EDIT_USER_FAILURE,
-      payload: reason
-    }))    
+      }))
+      .catch(reason => dispatch({
+        type: types.EDIT_USER_FAILURE,
+        payload: reason
+      }))
   }
 }

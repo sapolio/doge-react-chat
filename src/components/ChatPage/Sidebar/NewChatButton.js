@@ -72,7 +72,7 @@ class NewChatButton extends React.Component {
 
 
 render() {
-  const { classes } = this.props;
+  const { classes,disabled } = this.props;
   const { chatName, isModalOpen } = this.state;
 
 
@@ -82,7 +82,9 @@ render() {
         onClick={this.handleOpen}
         variant="fab"
         color="primary"
-        className={classes.newChatButton}>
+        className={classes.newChatButton}
+        disabled={disabled}
+      >
         <AddIcon />
       </Button>
       <Modal

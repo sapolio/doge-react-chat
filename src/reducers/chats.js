@@ -17,7 +17,7 @@ const activeId = (state = initialState.activeId, action) => {
     case types.DELETE_CHAT_SUCCESS:
       return null;
     case types.RECIEVE_DELETED_CHAT:
-      return state === getChatId(action.payload.chat) ?
+      return state === action.payload._id ?
         null : state;
     default:
       return state;
@@ -29,8 +29,11 @@ const allIds = (state = initialState.allIds, action) => {
       return action.payload.chats.map(getChatId);
     case types.CREATE_CHAT_SUCCESS:
     case types.RECIEVE_NEW_CHAT:
-      return [...state, getChatId(action.payload.chat)];
+      return [...state, action.payload._id];
     case types.RECIEVE_DELETED_CHAT:
+      return state.filter(chatId => (
+        chatId !== action.payload._id
+      ));
     case types.DELETE_CHAT_SUCCESS:
       return state.filter( chatId => (
         chatId !== getChatId(action.payload.chat)
@@ -48,6 +51,9 @@ const myIds = (state = initialState.myIds, action) => {
       return [...state, getChatId(action.payload.chat)];
     case types.LEAVE_CHAT_SUCCESS:
     case types.RECIEVE_DELETED_CHAT:
+      return state.filter(chatId => (
+        chatId !== action.payload._id
+      ));
     case types.DELETE_CHAT_SUCCESS:
       return state.filter(chatId => (
         chatId !== getChatId(action.payload.chat)

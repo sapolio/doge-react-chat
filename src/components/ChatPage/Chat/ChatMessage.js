@@ -36,9 +36,9 @@ const styles = theme => ({
 });
 
 const ChatMessage = ({ classes, sender, content, fromMe, statusMessage, createdAt }) => {
-
+  
   const displayedName = senderName(sender);
-
+  
   if (statusMessage) {
     return (
       <div className={classnames(classes.messageWrapper, classes.statusWrapper)}>
@@ -60,16 +60,19 @@ const ChatMessage = ({ classes, sender, content, fromMe, statusMessage, createdA
       classes.messageWrapper,
       fromMe && classes.messageWrappperFromMe
     )}>
-      <Avatar title={sender.username} />
+      <Avatar colorFrom={sender._id} title={displayedName} />
       <Paper className={classnames(
         classes.message,
         fromMe && classes.messageFromMe
       )}>
-        <Typography variant="caption">
-          {sender.username}
+        <Typography variant="caption" style={{ color: colorFrom(sender._id) }} className={classes.statusMessageUser}>
+          {displayedName}
         </Typography>
         <Typography variant="body1">
           {content}
+        </Typography>
+        <Typography variant="caption" component="span">
+          {moment(createdAt).fromNow()}
         </Typography>
       </Paper>
     </div>

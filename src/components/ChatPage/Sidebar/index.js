@@ -74,7 +74,7 @@ class Sidebar extends React.Component {
 
 render() {
 
-  const { classes, chats, createChat } = this.props;
+  const { classes, chats, createChat, isConnected } = this.props;
   const { navPosition, searchValue } = this.state;
 
   return (   
@@ -97,9 +97,12 @@ render() {
       <ChatList
         chats={this.filterChats(navPosition === 1 ? chats.all : chats.my)}
         activeChat={chats.active}
+        disabled={!isConnected}
+
       />
       <NewChatButton 
         createChat={createChat}
+        disabled={!isConnected}
       />
       <BottomNavigation 
         showLabels

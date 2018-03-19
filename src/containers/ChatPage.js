@@ -20,15 +20,17 @@ const
       chats: {
         active: activeChat,
         my: fromChats.getByIds(state.chats, state.chats.myIds),
-        all: fromChats.getByIds(state.chats, state.chats.allIds),
+        all: fromChats.getByIds(state.chats, state.chats.allIds)
       },
       activeUser: {
         ...state.auth.user,
         isMember: fromState.isMember(state, activeChat),
         isCreator: fromState.isCreator(state, activeChat),
-        isChatMember: fromState.isChatMember(state, activeChat),
+        isChatMember: fromState.isChatMember(state, activeChat)
       },
       messages: state.messages,
+      error: state.services.errors.chat,
+      isConnected: state.services.isConnected
     };
   },
   mapDispatchToProps = dispatch => bindActionCreators({

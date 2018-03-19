@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
 import ChatHeader from './ChatHeader';
+import ErrorMessage from "../ErrorMessage";
 
 const styles = theme => ({
   appFrame: {
@@ -49,31 +50,36 @@ class ChatPage extends React.Component {
     const { classes,
       logout, chats, activeUser,
       createChat, joinChat, leaveChat, deleteChat, sendMessage,
-      messages, editUser
+      messages, editUser, error, isConnected
     } = this.props;
     
     return (
       <React.Fragment>
         <div className={classes.appFrame}>
-        <ChatHeader
-          activeUser={activeUser}
-          activeChat={chats.active}
-          leaveChat={leaveChat}
-          deleteChat={deleteChat}
-          logout={logout}
-          editUser={editUser}
-        />
+          <ChatHeader
+            activeUser={activeUser}
+            activeChat={chats.active}
+            leaveChat={leaveChat}
+            deleteChat={deleteChat}
+            logout={logout}
+            editUser={editUser}
+            isConnected={isConnected}
+          />
           <Sidebar 
             chats={chats}
             createChat={createChat}
-             />
+            isConnected={isConnected}
+          />
           <Chat 
             messages={messages}
             joinChat={joinChat}
             sendMessage={sendMessage}
             activeUser={activeUser}
-            activeChat={chats.active} />
+            activeChat={chats.active}
+            isConnected={isConnected}
+          />
         </div>
+        <ErrorMessage error={error} />
       </React.Fragment>
     )
   }

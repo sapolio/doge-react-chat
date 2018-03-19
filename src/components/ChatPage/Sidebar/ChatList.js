@@ -10,7 +10,7 @@ const styles = theme => ({
   },
 });
 
-function ChatList({ classes, chats, activeChat}) {
+function ChatList({ classes, chats, activeChat, disabled }) {
   return (
       <List className={classes.chatList}>
         {chats && chats.length ? (
@@ -19,6 +19,7 @@ function ChatList({ classes, chats, activeChat}) {
             key={chat._id}
             active={activeChat && activeChat._id !== chat._id}
             chatId={chat._id}
+            disabled={disabled}
             {...chat} />
           ))) : (
           <Typography variant="subheading" className={classes.noChats}>

@@ -23,28 +23,28 @@ const styles = theme => ({
   }),
 });
 
-const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage }) => (
+const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage, isConnected }) => (
   <main className={classes.chatLayout}>
     {!!activeChat && <ChatMessageList 
       messages={messages}
       activeUser={activeUser} />}
       
     {!!activeChat || (
-      <Paper className={classes.tipPaper} elevation={8}>
-        <Typography variant="headline" component="h3">
-          This is a sheet of paper.
-        </Typography>
-        <Typography component="p">
-          Paper can be used to build surface or other elements for your application.
+      <Paper className={classes.tipPaper}>
+        <Typography variant="display1" gutterBottom>
+          Start WOW
         </Typography>
       </Paper>
     )}
 
-    {!!activeChat && <MessageInput
-      showJoinButton={!activeUser.isChatMember}
-      sendMessage={sendMessage}
-      onJoinButtonClick={() => joinChat(activeChat._id)}
-      activeUser={activeUser} />}
+    {!!activeChat && 
+      <MessageInput
+        showJoinButton={!activeUser.isChatMember}
+        sendMessage={sendMessage}
+        onJoinButtonClick={() => joinChat(activeChat._id)}
+        activeUser={activeUser}
+        disabled={!isConnected} />
+    }
   </main>
 );
 

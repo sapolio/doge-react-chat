@@ -61,7 +61,7 @@ class Sidebar extends React.Component {
   }
   filterChats = (chats) => {
     const { searchValue } = this.state;
-
+    
     return chats
       .filter(chat => chat.title
         .toLowerCase()
@@ -88,6 +88,7 @@ render() {
         <TextField
           fullWidth
           margin="normal"
+          type="search"
           placeholder="Search chats..."
             value={searchValue}
             onChange={this.handleSearchChange}

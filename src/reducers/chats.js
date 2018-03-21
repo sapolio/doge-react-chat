@@ -27,7 +27,6 @@ const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
     case types.FETCH_ALL_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
-    case types.CREATE_CHAT_SUCCESS:
     case types.RECIEVE_NEW_CHAT:
       return [...state, action.payload._id];
     case types.RECIEVE_DELETED_CHAT:

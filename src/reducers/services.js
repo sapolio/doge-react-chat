@@ -1,5 +1,5 @@
+import { combineReducers } from 'redux';
 import * as types from '../constants';
-import { combineReducers } from 'redux'
 
 const initialState = {
   isFetching: {
@@ -21,7 +21,7 @@ const initialState = {
     auth: null,
     chat: null,
   },
-  isConnected: false
+  isConnected: false,
 };
 
 export const isFetching = (state = initialState.isFetching, action) => {
@@ -133,7 +133,7 @@ export const errors = (state = initialState.errors, action) => {
     case types.SOCKETS_CONNECTION_SUCCESS:
     case types.EDIT_USER_SUCCESS:
       return { ...state, chat: null };
-      
+
     default:
       return state;
   }
@@ -154,5 +154,5 @@ export function isConnected(state = initialState.isConnected, action) {
 export default combineReducers({
   isFetching,
   errors,
-  isConnected
-})
+  isConnected,
+});

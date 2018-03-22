@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -23,12 +24,18 @@ const styles = theme => ({
   }),
 });
 
-const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage, isConnected }) => (
+const Chat = ({
+  classes,
+  messages,
+  activeChat,
+  activeUser,
+  joinChat,
+  sendMessage,
+  isConnected,
+}) => (
   <main className={classes.chatLayout}>
-    {!!activeChat && <ChatMessageList 
-      messages={messages}
-      activeUser={activeUser} />}
-      
+    {!!activeChat && <ChatMessageList messages={messages} activeUser={activeUser} />}
+
     {!!activeChat || (
       <Paper className={classes.tipPaper}>
         <Typography variant="display1" gutterBottom>
@@ -37,14 +44,15 @@ const Chat = ({ classes, messages, activeChat, activeUser, joinChat, sendMessage
       </Paper>
     )}
 
-    {!!activeChat && 
+    {!!activeChat && (
       <MessageInput
         showJoinButton={!activeUser.isChatMember}
         sendMessage={sendMessage}
         onJoinButtonClick={() => joinChat(activeChat._id)}
         activeUser={activeUser}
-        disabled={!isConnected} />
-    }
+        disabled={!isConnected}
+      />
+    )}
   </main>
 );
 

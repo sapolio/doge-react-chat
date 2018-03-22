@@ -2,12 +2,12 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import Divider from 'material-ui/Divider';
-import TextField from 'material-ui/TextField';
-import ChatList from './ChatList';
-import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
-
 import RestoreIcon from 'material-ui-icons/Restore';
 import ExploreIcon from 'material-ui-icons/Explore';
+import BottomNavigation, { BottomNavigationAction } from 'material-ui/BottomNavigation';
+import TextField from 'material-ui/TextField';
+import ChatList from './ChatList';
+
 import NewChatButton from './NewChatButton';
 
 const styles = theme => ({
@@ -31,11 +31,11 @@ const styles = theme => ({
       marginTop: 64,
     },
   },
-  
+
   chatList: {
-      height: 'calc(100% - 56px)',
-      overflowY: 'scroll',
-    },
+    height: 'calc(100% - 56px)',
+    overflowY: 'scroll',
+  },
   newChatButton: {
     position: 'absolute',
     left: 'auto',
@@ -45,76 +45,64 @@ const styles = theme => ({
 });
 
 class Sidebar extends React.Component {
-
   state = {
     navPosition: 0,
-    searchValue: ''
+    searchValue: '',
   };
 
   handleTabChange = (event, value) => {
-    this.setState({navPosition: value});
+    this.setState({ navPosition: value });
   };
   handleSearchChange = (event) => {
     this.setState({
       searchValue: event.target.value,
     });
-  }
+  };
   filterChats = (chats) => {
     const { searchValue } = this.state;
-    
+
     return chats
-      .filter(chat => chat.title
-        .toLowerCase()
-        .includes(searchValue.toLowerCase())
-      )
-      .sort((one, two) =>
-        one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1
-      );
-  }
+      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
+      .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
+  };
 
-render() {
+  render() {
+    const {
+      classes, chats, createChat, isConnected,
+    } = this.props;
+    const { navPosition, searchValue } = this.state;
 
-  const { classes, chats, createChat, isConnected } = this.props;
-  const { navPosition, searchValue } = this.state;
-
-  return (   
-    <Drawer
-      variant="permanent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      <div className={classes.drawerHeader}>
-        <TextField
-          fullWidth
-          margin="normal"
-          type="search"
-          placeholder="Search chats..."
+    return (
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <TextField
+            fullWidth
+            margin="normal"
+            type="search"
+            placeholder="Search chats..."
             value={searchValue}
             onChange={this.handleSearchChange}
+          />
+        </div>
+        <Divider />
+        <ChatList
+          chats={this.filterChats(navPosition === 1 ? chats.all : chats.my)}
+          activeChat={chats.active}
+          disabled={!isConnected}
         />
-      </div>
-      <Divider />
-      <ChatList
-        chats={this.filterChats(navPosition === 1 ? chats.all : chats.my)}
-        activeChat={chats.active}
-        disabled={!isConnected}
-
-      />
-      <NewChatButton 
-        createChat={createChat}
-        disabled={!isConnected}
-      />
-      <BottomNavigation 
-        showLabels
-        value={navPosition}
-        onChange={this.handleTabChange}
-      >
-        <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
-      </BottomNavigation>
-    </Drawer>
-  )}
-};
+        <NewChatButton createChat={createChat} disabled={!isConnected} />
+        <BottomNavigation showLabels value={navPosition} onChange={this.handleTabChange}>
+          <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
+        </BottomNavigation>
+      </Drawer>
+    );
+  }
+}
 
 export default withStyles(styles)(Sidebar);

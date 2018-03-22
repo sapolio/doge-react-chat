@@ -4,38 +4,44 @@ import { withStyles } from 'material-ui/styles';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
 import ChatHeader from './ChatHeader';
-import ErrorMessage from "../ErrorMessage";
+import ErrorMessage from '../ErrorMessage';
 
-const styles = theme => ({
+const styles = () => ({
   appFrame: {
     position: 'relative',
     display: 'flex',
     width: '100%',
     height: '100%',
-  }
+  },
 });
 
 class ChatPage extends React.Component {
   componentDidMount() {
-    const { match, fetchMyChats, fetchAllChats, setActiveChat, socketsConnect, mountChat } = this.props;
+    const {
+      match,
+      fetchMyChats,
+      fetchAllChats,
+      setActiveChat,
+      socketsConnect,
+      mountChat,
+    } = this.props;
 
-    Promise.all([
-      fetchAllChats(),
-      fetchMyChats()
-    ])
-    .then(() => {
-      socketsConnect()
-    })
-    .then(() => {
-      const { chatId } = match.params;
-      if (chatId) {
-        setActiveChat(chatId);
-        mountChat(chatId);
-      }
-    });
+    Promise.all([fetchAllChats(), fetchMyChats()])
+      .then(() => {
+        socketsConnect();
+      })
+      .then(() => {
+        const { chatId } = match.params;
+        if (chatId) {
+          setActiveChat(chatId);
+          mountChat(chatId);
+        }
+      });
   }
   componentWillReceiveProps(nextProps) {
-    const { match: { params }, setActiveChat, mountChat, unmountChat } = this.props;
+    const {
+      match: { params }, setActiveChat, mountChat, unmountChat,
+    } = this.props;
     const { params: nextParams } = nextProps.match;
 
     // If we change route, then fetch messages from chat by chatID
@@ -47,12 +53,22 @@ class ChatPage extends React.Component {
   }
 
   render() {
-    const { classes,
-      logout, chats, activeUser,
-      createChat, joinChat, leaveChat, deleteChat, sendMessage,
-      messages, editUser, error, isConnected
+    const {
+      classes,
+      logout,
+      chats,
+      activeUser,
+      createChat,
+      joinChat,
+      leaveChat,
+      deleteChat,
+      sendMessage,
+      messages,
+      editUser,
+      error,
+      isConnected,
     } = this.props;
-    
+
     return (
       <React.Fragment>
         <div className={classes.appFrame}>
@@ -65,12 +81,8 @@ class ChatPage extends React.Component {
             editUser={editUser}
             isConnected={isConnected}
           />
-          <Sidebar 
-            chats={chats}
-            createChat={createChat}
-            isConnected={isConnected}
-          />
-          <Chat 
+          <Sidebar chats={chats} createChat={createChat} isConnected={isConnected} />
+          <Chat
             messages={messages}
             joinChat={joinChat}
             sendMessage={sendMessage}
@@ -81,7 +93,7 @@ class ChatPage extends React.Component {
         </div>
         <ErrorMessage error={error} />
       </React.Fragment>
-    )
+    );
   }
 }
 

@@ -13,24 +13,24 @@ const styles = theme => ({
   button: {
     flex: 'none',
     marginTop: theme.spacing.unit * 2,
-  }
+  },
 });
 
 class LoginForm extends React.Component {
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
-      value: "",
-      isValid: true
+      value: '',
+      isValid: true,
     },
     repeatedPassword: {
       value: '',
       isValid: true,
     },
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -41,19 +41,19 @@ class LoginForm extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
 
     if (!this.validate()) {
       return;
-    } 
+    }
 
     const { username, password } = this.state;
 
-    this.props.onSubmit(username.value, password.value)
-  }
+    this.props.onSubmit(username.value, password.value);
+  };
 
   validate = () => {
     const { password, repeatedPassword } = this.state;
@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
     });
 
     return isValid;
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -112,19 +112,12 @@ class LoginForm extends React.Component {
           error={!password.isValid}
           name="repeatedPassword"
         />
-        <Button
-          fullWidth
-          variant="raised"
-          type="submit"
-          color="primary"
-          className={classes.button}
-        >
+        <Button fullWidth variant="raised" type="submit" color="primary" className={classes.button}>
           Sign up
         </Button>
       </form>
     );
   }
 }
-
 
 export default withStyles(styles)(LoginForm);

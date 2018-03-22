@@ -1,7 +1,8 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import ChatMessage from './ChatMessage';
 import Typography from 'material-ui/Typography';
+import ChatMessage from './ChatMessage';
 
 const styles = theme => ({
   messagesWrapper: {
@@ -23,9 +24,8 @@ class ChatMessageList extends React.Component {
   }
 
   scrollDownHistory() {
-    const messagesWrapper = this.refs.messagesWrapper;
-    if (messagesWrapper) {
-      messagesWrapper.scrollTop = messagesWrapper.scrollHeight;
+    if (this.messagesWrapper) {
+      this.messagesWrapper.scrollTop = this.messagesWrapper.scrollHeight;
     }
   }
 
@@ -33,21 +33,23 @@ class ChatMessageList extends React.Component {
     const { classes, messages, activeUser } = this.props;
 
     return !messages.length ? (
-      <Typography variant="display1">
-        Not so messages wow
-      </Typography>
+      <Typography variant="display1">Not so messages wow</Typography>
     ) : (
-        <div className={classes.messagesWrapper} ref="messagesWrapper">
-          {messages.map((message, index) => (
-            <ChatMessage
-              key={message._id}
-              fromMe={message.sender._id === activeUser._id}
-              {...message} />
-          )
-          )}
-        </div>)
-
-
+      <div
+        className={classes.messagesWrapper}
+        ref={(node) => {
+          this.messagesWrapper = node;
+        }}
+      >
+        {messages.map(message => (
+          <ChatMessage
+            key={message._id}
+            fromMe={message.sender._id === activeUser._id}
+            {...message}
+          />
+        ))}
+      </div>
+    );
   }
 }
 

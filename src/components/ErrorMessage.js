@@ -16,14 +16,15 @@ class ErrorMessage extends React.Component {
     open: false,
   };
 
-  handleClose = (event, reason) => {
-    this.setState({ open: false });
-  };
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({ open: true });
     }
   }
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     const { classes, error } = this.props;
@@ -31,33 +32,31 @@ class ErrorMessage extends React.Component {
     if (!error) return null;
 
     return (
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.open}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          SnackbarContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span>{error.message}</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={this.handleClose}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={this.state.open}
+        autoHideDuration={6000}
+        onClose={this.handleClose}
+        SnackbarContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span>{error.message}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={this.handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
     );
   }
 }
-
-
 export default withStyles(styles)(ErrorMessage);

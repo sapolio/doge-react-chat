@@ -13,30 +13,34 @@ class PrivateRoute extends React.Component {
     const { component: Component, isAuthenticated, ...rest } = this.props;
 
     return (
-      <Route {...rest} render={props => (
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{
-            pathname: '/welcome',
-            state: { from: props.location }
-          }} />
-        )
-      )} />
+      <Route
+        {...rest}
+        render={props =>
+          (isAuthenticated ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/welcome',
+                state: { from: props.location },
+              }}
+            />
+          ))
+        }
+      />
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  receiveAuth
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      receiveAuth,
+    },
+    dispatch,
+  );
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(PrivateRoute)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PrivateRoute));

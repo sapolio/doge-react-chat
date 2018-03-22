@@ -9,6 +9,6 @@ export default (state = initialState, action) => {
     case types.FETCH_CHAT_SUCCESS:
       return action.payload.chat.messages;
     default:
-    return state
+      return state;
   }
-} 
+};

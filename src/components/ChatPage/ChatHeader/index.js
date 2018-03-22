@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -10,35 +11,38 @@ import ChatMenu from './ChatMenu';
 const styles = theme => ({
   chatheader: {
     position: 'absolute',
-    width: `calc(100% - 320px)`,
+    width: 'calc(100% - 320px)',
   },
   Toolbar: {
-    'justify-content': 'space-between'
+    'justify-content': 'space-between',
   },
   titleContainer: {
     display: 'flex',
-    'align-items': 'center'
+    'align-items': 'center',
   },
   chatTitle: {
     flex: 1,
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
   },
-})
+});
 
-const ChatHeader = ({ classes, activeUser, logout, editUser,
-  activeChat, leaveChat, deleteChat, isConnected }) => (
-
+const ChatHeader = ({
+  classes,
+  activeUser,
+  logout,
+  editUser,
+  activeChat,
+  leaveChat,
+  deleteChat,
+  isConnected,
+}) => (
   <AppBar className={classes.chatheader}>
     <Toolbar className={classes.Toolbar}>
       {activeChat ? (
         <div className={classes.titleContainer}>
-            <Avatar title={activeChat.title} colorFrom={activeChat._id} />
-          <Typography
-            className={classes.chatTitle}
-            variant="title"
-            color="inherit"
-            noWrap>
+          <Avatar title={activeChat.title} colorFrom={activeChat._id} />
+          <Typography className={classes.chatTitle} variant="title" color="inherit" noWrap>
             {activeChat.title}
           </Typography>
           <ChatMenu
@@ -49,15 +53,10 @@ const ChatHeader = ({ classes, activeUser, logout, editUser,
           />
         </div>
       ) : (
-            <Typography
-              className={classes.chatTitle}
-              variant="title"
-              color="inherit"
-              noWrap>
-              Doge Chat Such Many React
-            </Typography>
-          )
-      }
+        <Typography className={classes.chatTitle} variant="title" color="inherit" noWrap>
+          Doge Chat Such Many React
+        </Typography>
+      )}
       <UserMenu
         activeUser={activeUser}
         onLogoutClick={logout}
@@ -66,6 +65,6 @@ const ChatHeader = ({ classes, activeUser, logout, editUser,
       />
     </Toolbar>
   </AppBar>
-)
+);
 
 export default withStyles(styles)(ChatHeader);

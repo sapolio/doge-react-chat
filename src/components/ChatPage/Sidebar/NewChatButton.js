@@ -26,17 +26,17 @@ const styles = theme => ({
   textField: {
     'margin-top': theme.spacing.unit * 2,
     'margin-bottom': theme.spacing.unit * 2,
-  }
-})
+  },
+});
 
 class NewChatButton extends React.Component {
   state = {
     isModalOpen: false,
     chatName: {
       value: '',
-      isValid: true
-    }
-  }
+      isValid: true,
+    },
+  };
 
   handleOpen = () => {
     this.setState({ isModalOpen: true });
@@ -51,13 +51,13 @@ class NewChatButton extends React.Component {
       chatName: {
         ...prevState.chatName,
         value,
-        isValid: true
+        isValid: true,
       },
     }));
   };
   handleOnSubmit = (event) => {
     event.preventDefault();
-    
+
     const { createChat } = this.props;
     const { chatName: { value: title } } = this.state;
     createChat(title);
@@ -68,26 +68,24 @@ class NewChatButton extends React.Component {
         isValid: true,
       },
     });
-  }
+  };
 
+  render() {
+    const { classes, disabled } = this.props;
+    const { chatName, isModalOpen } = this.state;
 
-render() {
-  const { classes,disabled } = this.props;
-  const { chatName, isModalOpen } = this.state;
-
-
-  return (
-    <React.Fragment>
-      <Button
-        onClick={this.handleOpen}
-        variant="fab"
-        color="primary"
-        className={classes.newChatButton}
-        disabled={disabled}
-      >
-        <AddIcon />
-      </Button>
-      <Modal
+    return (
+      <React.Fragment>
+        <Button
+          onClick={this.handleOpen}
+          variant="fab"
+          color="primary"
+          className={classes.newChatButton}
+          disabled={disabled}
+        >
+          <AddIcon />
+        </Button>
+        <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={isModalOpen}
@@ -98,7 +96,7 @@ render() {
               Such create very chat
             </Typography>
             <form onSubmit={this.handleOnSubmit}>
-              <TextField 
+              <TextField
                 required
                 fullWidth
                 placeholder="Much chatname"
@@ -107,22 +105,15 @@ render() {
                 onChange={this.handleInputChange}
                 className={classes.textField}
               />
-              <Button
-                fullWidth
-                type="submit"
-                variant="raised"
-                color="primary"
-              >
+              <Button fullWidth type="submit" variant="raised" color="primary">
                 WOW
               </Button>
             </form>
           </div>
         </Modal>
-    </React.Fragment>
-  )
+      </React.Fragment>
+    );
+  }
 }
 
-
-}
-
-export default withStyles(styles)(NewChatButton)
+export default withStyles(styles)(NewChatButton);

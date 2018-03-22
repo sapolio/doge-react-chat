@@ -5,11 +5,10 @@ const token = localStorage.getItem('token');
 const initialState = {
   isAuthenticated: !!token,
   user: null,
-  token
-}
+  token,
+};
 
 export default function auth(state = initialState, action) {
-
   switch (action.type) {
     case types.SIGNUP_SUCCESS:
     case types.LOGIN_SUCCESS:
@@ -23,12 +22,12 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload.user
+        user: action.payload.user,
       };
     case types.EDIT_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload.user
+        user: action.payload.user,
       };
     case types.LOGOUT_SUCCESS:
     case types.LOGIN_FAILURE:
@@ -39,7 +38,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         token: '',
-      }
+      };
     default:
       return state;
   }

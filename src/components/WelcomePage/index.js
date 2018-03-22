@@ -11,14 +11,13 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import ErrorMessage from '../ErrorMessage';
 
-
-const styles = theme => ({
-  paper: {    
-    'margin': '0 auto',
+const styles = () => ({
+  paper: {
+    margin: '0 auto',
     'margin-top': '88px',
-    'max-width': '500px'
-  }
-})
+    'max-width': '500px',
+  },
+});
 
 class WelcomePage extends React.Component {
   state = {
@@ -30,11 +29,13 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, theme, signup, login, isAuthenticated, error } = this.props;
+    const {
+      classes, theme, signup, login, isAuthenticated, error,
+    } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
-      return (<Redirect to='/chat' />)
+      return <Redirect to="/chat" />;
     }
 
     return (
@@ -59,17 +60,14 @@ class WelcomePage extends React.Component {
               <Tab label="Sign up" />
             </Tabs>
           </AppBar>
-          <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={activeTab}
-          >
-            <LoginForm onSubmit={login}/>
-            <SignupForm onSubmit={signup}/>
+          <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={activeTab}>
+            <LoginForm onSubmit={login} />
+            <SignupForm onSubmit={signup} />
           </SwipeableViews>
         </Paper>
         <ErrorMessage error={error} />
       </React.Fragment>
-    )
+    );
   }
 }
 

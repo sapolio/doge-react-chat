@@ -3,53 +3,58 @@ import { connect } from 'react-redux';
 import * as fromChats from '../reducers/chats';
 import * as fromState from '../reducers';
 import {
-  fetchAllChats, fetchMyChats, setActiveChat,
-  createChat, deleteChat, joinChat, leaveChat
-  } from '../actions/chats';
+  fetchAllChats,
+  fetchMyChats,
+  setActiveChat,
+  createChat,
+  deleteChat,
+  joinChat,
+  leaveChat,
+} from '../actions/chats';
 import { logout } from '../actions/auth';
-import { sendMessage, mountChat, unmountChat, socketsConnect } from "../actions/sockets";
+import { sendMessage, mountChat, unmountChat, socketsConnect } from '../actions/sockets';
 import { editUser } from '../actions/users';
 import ChatPage from '../components/ChatPage';
 
-const
-  mapStateToProps = state => {
-    const activeChat = fromChats.getById(state.chats, state.chats.activeId);
+const mapStateToProps = (state) => {
+  const activeChat = fromChats.getById(state.chats, state.chats.activeId);
 
-    return {
-      isAuthenticated: state.auth.isAuthenticated,
-      chats: {
-        active: activeChat,
-        my: fromChats.getByIds(state.chats, state.chats.myIds),
-        all: fromChats.getByIds(state.chats, state.chats.allIds)
-      },
-      activeUser: {
-        ...state.auth.user,
-        isMember: fromState.isMember(state, activeChat),
-        isCreator: fromState.isCreator(state, activeChat),
-        isChatMember: fromState.isChatMember(state, activeChat)
-      },
-      messages: state.messages,
-      error: state.services.errors.chat,
-      isConnected: state.services.isConnected
-    };
-  },
-  mapDispatchToProps = dispatch => bindActionCreators({
-    fetchAllChats,
-    fetchMyChats,
-    setActiveChat,
-    createChat,
-    deleteChat,
-    joinChat,
-    leaveChat,
-    logout,
-    editUser,
-    sendMessage,
-    mountChat,
-    unmountChat,
-    socketsConnect
-  }, dispatch);
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    chats: {
+      active: activeChat,
+      my: fromChats.getByIds(state.chats, state.chats.myIds),
+      all: fromChats.getByIds(state.chats, state.chats.allIds),
+    },
+    activeUser: {
+      ...state.auth.user,
+      isMember: fromState.isMember(state, activeChat),
+      isCreator: fromState.isCreator(state, activeChat),
+      isChatMember: fromState.isChatMember(state, activeChat),
+    },
+    messages: state.messages,
+    error: state.services.errors.chat,
+    isConnected: state.services.isConnected,
+  };
+};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchAllChats,
+      fetchMyChats,
+      setActiveChat,
+      createChat,
+      deleteChat,
+      joinChat,
+      leaveChat,
+      logout,
+      editUser,
+      sendMessage,
+      mountChat,
+      unmountChat,
+      socketsConnect,
+    },
+    dispatch,
+  );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

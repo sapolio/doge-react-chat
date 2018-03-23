@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -17,6 +18,10 @@ const styles = theme => ({
 });
 
 class LoginForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
   state = {
     username: {
       value: '',

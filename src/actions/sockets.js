@@ -57,14 +57,14 @@ export function socketsConnect() {
     socket.on('new-chat', ({ chat }) => {
       dispatch({
         type: types.RECIEVE_NEW_CHAT,
-        payload: chat,
+        payload: { chat },
       });
     });
     socket.on('deleted-chat', ({ chat }) => {
       const { activeId } = getState().chats;
       dispatch({
         type: types.RECIEVE_DELETED_CHAT,
-        payload: chat,
+        payload: { chat },
       });
 
       if (activeId === chat._id) {

@@ -69,7 +69,6 @@ const byId = (state = initialState.byId, action) => {
       };
     case types.JOIN_CHAT_SUCCESS:
     case types.LEAVE_CHAT_SUCCESS:
-    case types.CREATE_CHAT_SUCCESS:
     case types.RECIEVE_NEW_CHAT:
       return { ...state, [getChatId(action.payload.chat)]: action.payload.chat };
     case types.DELETE_CHAT_SUCCESS:

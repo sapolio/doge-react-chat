@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -23,6 +24,17 @@ const styles = theme => ({
 });
 
 class UserMenu extends React.Component {
+  static propTypes = {
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+    }).isRequired,
+    onEditProfileClick: PropTypes.func.isRequired,
+    onLogoutClick: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
   state = {
     isModalOpen: false,
     anchorEl: null,

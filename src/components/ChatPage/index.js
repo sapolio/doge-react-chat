@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
+import PropTypes from 'prop-types';
 
 import Sidebar from './Sidebar';
 import Chat from './Chat';
@@ -16,6 +17,50 @@ const styles = () => ({
 });
 
 class ChatPage extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.object.isRequired,
+    }).isRequired,
+    classes: PropTypes.objectOf(PropTypes.any).isRequired,
+    logout: PropTypes.func.isRequired,
+    chats: PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.array.isRequired,
+      all: PropTypes.array.isRequired,
+    }).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    createChat: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    leaveChat: PropTypes.func.isRequired,
+    deleteChat: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.object.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })).isRequired,
+    editUser: PropTypes.func.isRequired,
+    error: PropTypes.instanceOf(Error),
+    isConnected: PropTypes.bool.isRequired,
+    fetchMyChats: PropTypes.func.isRequired,
+    fetchAllChats: PropTypes.func.isRequired,
+    setActiveChat: PropTypes.func.isRequired,
+    socketsConnect: PropTypes.func.isRequired,
+    mountChat: PropTypes.func.isRequired,
+    unmountChat: PropTypes.func.isRequired,
+  };
+  static defaultProps = {
+    error: null,
+  };
+
   componentDidMount() {
     const {
       match,

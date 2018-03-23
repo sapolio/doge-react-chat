@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { withStyles } from 'material-ui';
 import Typography from 'material-ui/Typography';
@@ -80,4 +81,20 @@ const ChatMessage = ({
   );
 };
 
+ChatMessage.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  sender: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+  }).isRequired,
+  content: PropTypes.string.isRequired,
+  fromMe: PropTypes.bool.isRequired,
+  statusMessage: PropTypes.bool,
+  createdAt: PropTypes.string.isRequired,
+};
+ChatMessage.defaultProps = {
+  statusMessage: false,
+};
 export default withStyles(styles)(ChatMessage);

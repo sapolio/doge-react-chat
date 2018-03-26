@@ -15,6 +15,7 @@ const styles = theme => ({
   drawerPaper: {
     position: 'relative',
     width: 320,
+    overflowY: 'hidden',
   },
   drawerHeader: {
     ...theme.mixins.toolbar,
@@ -44,6 +45,7 @@ const styles = theme => ({
     // eslint-disable-next-line
     bottom: theme.spacing.unit * 3 + 48, // + bottom navigation
   },
+  bottomNav: { flex: '0 0 auto' },
 });
 
 class Sidebar extends React.Component {
@@ -104,7 +106,12 @@ class Sidebar extends React.Component {
           disabled={!isConnected}
         />
         <NewChatButton createChat={createChat} disabled={!isConnected} />
-        <BottomNavigation showLabels value={navPosition} onChange={this.handleTabChange}>
+        <BottomNavigation
+          showLabels
+          value={navPosition}
+          onChange={this.handleTabChange}
+          className={classes.bottomNav}
+        >
           <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
         </BottomNavigation>

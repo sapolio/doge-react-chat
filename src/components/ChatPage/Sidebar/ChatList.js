@@ -9,6 +9,7 @@ import ChatListItem from './ChatListItem';
 const styles = () => ({
   chatList: {
     overflowY: 'scroll',
+    overflowX: 'hidden',
   },
 });
 

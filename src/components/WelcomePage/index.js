@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -9,17 +10,29 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import SwipeableViews from 'react-swipeable-views';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import ErrorMessage from '../ErrorMessage';
 
-
-const styles = theme => ({
-  paper: {    
-    'margin': '0 auto',
+const styles = () => ({
+  paper: {
+    margin: '0 auto',
     'margin-top': '88px',
-    'max-width': '500px'
-  }
-})
+    'max-width': '500px',
+  },
+});
 
 class WelcomePage extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    signup: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    // recieveAuth: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    error: PropTypes.instanceOf(Error),
+    theme: PropTypes.objectOf(PropTypes.any).isRequired,
+  };
+  static defaultProps = {
+    error: null,
+  };
   state = {
     activeTab: 0,
   };
@@ -29,11 +42,13 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, theme, signup, login, isAuthenticated } = this.props;
+    const {
+      classes, theme, signup, login, isAuthenticated, error,
+    } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
-      return (<Redirect to='/chat' />)
+      return <Redirect to="/chat" />;
     }
 
     return (
@@ -58,16 +73,14 @@ class WelcomePage extends React.Component {
               <Tab label="Sign up" />
             </Tabs>
           </AppBar>
-          <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={activeTab}
-          >
-            <LoginForm onSubmit={login}/>
-            <SignupForm onSubmit={signup}/>
+          <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={activeTab}>
+            <LoginForm onSubmit={login} />
+            <SignupForm onSubmit={signup} />
           </SwipeableViews>
         </Paper>
+        <ErrorMessage error={error} />
       </React.Fragment>
-    )
+    );
   }
 }
 

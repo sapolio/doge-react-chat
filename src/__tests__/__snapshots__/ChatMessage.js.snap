@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatMessage /> renders correctly 1`] = `
+<div
+  className="ChatMessage-messageWrapper-30 ChatMessage-statusWrapper-32"
+>
+  <p
+    className="MuiTypography-root-35 MuiTypography-body1-44"
+  >
+    <span
+      className="MuiTypography-root-35 MuiTypography-caption-45"
+      style={
+        Object {
+          "color": "#ff9800",
+        }
+      }
+    >
+      John Doe
+    </span>
+    string
+    <span
+      className="MuiTypography-root-35 MuiTypography-caption-45"
+    >
+      string
+    </span>
+  </p>
+</div>
+`;

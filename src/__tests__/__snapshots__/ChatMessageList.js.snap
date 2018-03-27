@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChatMessageList /> renders no messages 1`] = `
+<h1
+  className="MuiTypography-root-62 MuiTypography-display1-66"
+>
+  Not so messages wow
+</h1>
+`;
+
+exports[`<ChatMessageList /> renders with messages 1`] = `
+<div
+  className="ChatMessageList-messagesWrapper-61"
+>
+  <div
+    className="ChatMessage-messageWrapper-86 ChatMessage-messageWrappperFromMe-87"
+  >
+    <div
+      className="MuiAvatar-root-91 MuiAvatar-colorDefault-92"
+      style={
+        Object {
+          "backgroundColor": "#ffc107",
+        }
+      }
+    >
+      M
+    </div>
+    <div
+      className="MuiPaper-root-94 MuiPaper-shadow2-98 MuiPaper-rounded-95 ChatMessage-message-89 ChatMessage-messageFromMe-90"
+    >
+      <span
+        className="MuiTypography-root-62 MuiTypography-caption-72"
+        style={
+          Object {
+            "color": "#ffc107",
+          }
+        }
+      >
+        me
+      </span>
+      <p
+        className="MuiTypography-root-62 MuiTypography-body1-71"
+      >
+        Hello, World!
+      </p>
+      <span
+        className="MuiTypography-root-62 MuiTypography-caption-72"
+      >
+        2 days ago
+      </span>
+    </div>
+  </div>
+  <div
+    className="ChatMessage-messageWrapper-86"
+  >
+    <div
+      className="MuiAvatar-root-91 MuiAvatar-colorDefault-92"
+      style={
+        Object {
+          "backgroundColor": "#ffc107",
+        }
+      }
+    >
+      S
+    </div>
+    <div
+      className="MuiPaper-root-94 MuiPaper-shadow2-98 MuiPaper-rounded-95 ChatMessage-message-89"
+    >
+      <span
+        className="MuiTypography-root-62 MuiTypography-caption-72"
+        style={
+          Object {
+            "color": "#ffc107",
+          }
+        }
+      >
+        someone
+      </span>
+      <p
+        className="MuiTypography-root-62 MuiTypography-body1-71"
+      >
+        Hello, React!
+      </p>
+      <span
+        className="MuiTypography-root-62 MuiTypography-caption-72"
+      >
+        2 days ago
+      </span>
+    </div>
+  </div>
+</div>
+`;

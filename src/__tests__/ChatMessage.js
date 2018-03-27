@@ -15,8 +15,8 @@ describe('<ChatMessage />', () => {
       username: 'user',
     },
     content: 'string',
-    fromMe: true,
-    statusMessage: true,
+    fromMe: false,
+    statusMessage: false,
     createdAt: 'string',
   };
 
@@ -25,8 +25,28 @@ describe('<ChatMessage />', () => {
     ReactDOM.render(<ChatMessage {...props} />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
-  it('renders correctly', () => {
+  it('renders status message', () => {
+    const tree = renderer.create(<ChatMessage {...props} statusMessage />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('renders not from me', () => {
     const tree = renderer.create(<ChatMessage {...props} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('renders from me', () => {
+    const tree = renderer.create(<ChatMessage {...props} fromMe />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('renders username only', () => {
+    const tree = renderer
+      .create(<ChatMessage
+        {...props}
+        sender={{
+            _id: '123456789',
+            username: 'user',
+          }}
+      />)
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

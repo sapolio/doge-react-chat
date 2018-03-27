@@ -14,12 +14,15 @@ const styles = theme => ({
 
 class ErrorMessage extends React.Component {
   static propTypes = {
-    error: PropTypes.instanceOf(Error).isRequired,
-    classes: PropTypes.objectOf().isRequired,
+    error: PropTypes.instanceOf(Error),
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
+  static defaultProps = {
+    error: null,
   };
 
   state = {
-    open: false,
+    open: !!this.props.error,
   };
 
   componentWillReceiveProps(nextProps) {

@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageInput /> renders no button 1`] = `
+<div
+  className="MessageInput-messageInputWrapper-93"
+>
+  <div
+    className="MuiPaper-root-96 MuiPaper-shadow10-108 MuiPaper-rounded-97 MessageInput-messageInput-94"
+  >
+    <div
+      className="MuiInput-root-123 MuiInput-fullWidth-131 MuiInput-inkbar-125 MuiInput-underline-129"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyPress={[Function]}
+    >
+      <input
+        aria-invalid={undefined}
+        aria-required={undefined}
+        autoComplete={undefined}
+        autoFocus={undefined}
+        className="MuiInput-input-132"
+        defaultValue={undefined}
+        disabled={false}
+        id={undefined}
+        name={undefined}
+        onChange={[Function]}
+        onKeyDown={undefined}
+        onKeyUp={undefined}
+        placeholder="Type your WOW"
+        readOnly={undefined}
+        required={undefined}
+        rows={undefined}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<MessageInput /> renders no button disabled 1`] = `
+<div
+  className="MessageInput-messageInputWrapper-93"
+>
+  <div
+    className="MuiPaper-root-96 MuiPaper-shadow10-108 MuiPaper-rounded-97 MessageInput-messageInput-94"
+  >
+    <div
+      className="MuiInput-root-123 MuiInput-disabled-128 MuiInput-fullWidth-131 MuiInput-inkbar-125 MuiInput-underline-129"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyPress={[Function]}
+    >
+      <input
+        aria-invalid={undefined}
+        aria-required={undefined}
+        autoComplete={undefined}
+        autoFocus={undefined}
+        className="MuiInput-input-132 MuiInput-inputDisabled-134"
+        defaultValue={undefined}
+        disabled={true}
+        id={undefined}
+        name={undefined}
+        onChange={[Function]}
+        onKeyDown={undefined}
+        onKeyUp={undefined}
+        placeholder="Type your WOW"
+        readOnly={undefined}
+        required={undefined}
+        rows={undefined}
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<MessageInput /> renders with button 1`] = `
+<div
+  className="MessageInput-messageInputWrapper-93"
+>
+  <div
+    className="MuiPaper-root-96 MuiPaper-shadow10-108 MuiPaper-rounded-97 MessageInput-messageInput-94"
+  >
+    <button
+      className="MuiButtonBase-root-153 MuiButton-root-138 MuiButton-raised-143 MuiButton-raisedPrimary-145 MessageInput-button-95"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label-139"
+      >
+        So Much Join Very Chat
+      </span>
+      <span
+        className="MuiTouchRipple-root-155"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<MessageInput /> renders with button disabled 1`] = `
+<div
+  className="MessageInput-messageInputWrapper-93"
+>
+  <div
+    className="MuiPaper-root-96 MuiPaper-shadow10-108 MuiPaper-rounded-97 MessageInput-messageInput-94"
+  >
+    <button
+      className="MuiButtonBase-root-153 MuiButtonBase-disabled-154 MuiButton-root-138 MuiButton-raised-143 MuiButton-raisedPrimary-145 MuiButton-disabled-147 MessageInput-button-95"
+      disabled={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={-1}
+      type="button"
+    >
+      <span
+        className="MuiButton-label-139"
+      >
+        So Much Join Very Chat
+      </span>
+    </button>
+  </div>
+</div>
+`;
